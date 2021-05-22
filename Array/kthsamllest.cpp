@@ -1,11 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
 class MinHeap{
-	int *hv1;
+	int *harr;
 	int heapsize;
 	int capacity;
 	public:
-		MinHeap(vector<int> &v1, int size);
+		MinHeap(int arr[], int size);
 		void MinHeapify(int i);
 		int parent(int i){ return(i - 1 / 2);
 		 }
@@ -14,13 +14,13 @@ class MinHeap{
 		int right(int i){ return (2 * i + 2);
 		}		
 		int extractMin();
-		int getMin(){ return hv1[0];
+		int getMin(){ return harr[0];
 		}
 		
 };
-MinHeap::MinHeap(vector<int> v1, int size){
+MinHeap::MinHeap(int arr[], int size){
 	heapsize = size;
-	hv1 = v1;
+	harr = arr;
 	int i = heapsize - 1 / 2;
 	while(i >= 0){
 		MinHeapify(i);
@@ -30,9 +30,9 @@ MinHeap::MinHeap(vector<int> v1, int size){
 int MinHeap::extractMin(){
 	if(heapsize == 0){ return INT_MAX;
 	}
-	int root = hv1[0];
+	int root = harr[0];
 	if(heapsize > 1){
-		hv1[0] = hv1[heapsize- 1];
+		harr[0] = harr[heapsize- 1];
 		MinHeapify(0);
 	}
 	heapsize--;
@@ -42,29 +42,28 @@ void MinHeap::MinHeapify(int i){
 	int l = left(i);
 	int r = right(i);
 	int smallest = i;
-	if( l < heapsize && hv1[l] < hv1[i]){ smallest = hv1[l];
+	if( l < heapsize && harr[l] < harr[i]){ smallest = harr[l];
 	}
-	if( r < heapsize && hv1[smallest]){ smallest = hv1[r];
+	if( r < heapsize && harr[smallest]){ smallest = harr[r];
 	}
 	if(smallest != i){
-		swap(hv1[i], hv1[smallest]);
+		swap(harr[i], harr[smallest]);
 		MinHeapify(smallest);
 	}
 }
-int findk(vector<int> &v1, int k, int n){   // using sort algo
-	MinHeap mh(v1, n);
+int findk(int arr[], int k, int n){   
+	MinHeap mh(arr, n);
 	for(int i = 0; i < k - 1; i++){ mh.extractMin();
 	}
 	return mh.getMin();
 }
 int main(){
-	int n, temp, k;
+	int n, k;
     cin>>k;
 	cin>>n;
-	vector<int>v1;
-	for(int i = 0; i < n; i++){ cin>>temp;
-	v1.push_back(temp);
+	int arr[n];
+	for(int i = 0; i < n; i++){  cin>>arr[i];
 	}
-	findk(v1, k, n);
+	cout<<"kth smallest element: "<<findk(arr, k, n)<<endl;
 	return 0;
 }
