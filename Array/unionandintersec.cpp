@@ -41,7 +41,7 @@ int main(){
     cin>>t1;
     v1.push_back(t1);
   }
-  for(int j = 0; j < n; j++){
+  for(int j = 0; j < m; j++){
     cin>>t2;
     v2.push_back(t2);
   }
